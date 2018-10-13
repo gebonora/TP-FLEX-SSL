@@ -1,1 +1,1 @@
-enum token {fdt, identificador, constante, palabraReservada, operadorAditivo, operadorMultiplicativo, asignacion, caracterPuntuacion};
+enum token {fdt, identificador, constante, asignacion, programa, variables, definir, leer, escribir, codigo, fin};

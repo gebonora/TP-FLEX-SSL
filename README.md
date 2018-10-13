@@ -4,7 +4,7 @@ Ejecutar en terminal:
 flex scanner.l
 
 
-gcc -o main main.c -lfl
+gcc -o main *.c -lfl
 
 
 ./main <entrada.txt 

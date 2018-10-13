@@ -8,29 +8,34 @@
 %}
 
 %option outfile="scanner.c"
+%option header-file="scanner.h"
 %option noinput
 %option nounput
-%option nodefault
+
 
 Letra [[:alpha:]]
 Digito [0-9]
 Alfanumerico [[:alnum:]]
 Espacio [[:space:]]
-Otro [!#$%&':;<=>\?@\[\]\^`_\{\}~"]  
+Otro [[:punct:]]{-}[+*/.,()-]  
 %% 
 
-programa					|
-variables					|
-definir						|
-leer						|
-escribir					|
-codigo						|
-fin						return palabraReservada;
-[\+\-]						return operadorAditivo;
-[\*\/]						return operadorMultiplicativo;
+programa					return programa;
+variables					return variables;
+definir						return definir;
+leer						return leer;
+escribir					return escribir;
+codigo						return codigo;
+fin						return fin;
+"+"						return '+';
+"-"						return '-';
+"*"						return '*';
+"/"						return '/';
 "<-"						return asignacion;
-[\.,\(\)]					return caracterPuntuacion;
-[\.,\(\)]/(.+)					return caracterPuntuacion;
+"."						return '.';
+","						return ',';
+"("						return '(';
+")"						return ')';
 {Letra}{Alfanumerico}*				return identificador;
 {Digito}+					return constante;
 {Espacio}+					/* ignorar espacios */
@@ -38,4 +43,4 @@ fin						return palabraReservada;
 {Digito}+{Letra}+{Alfanumerico}* 		printf("Error léxico: \t\tConstante inválida: %s\n", yytext);
 {Otro}+						printf("Error léxico: \t\tCadena inválida: %s\n", yytext);
 {Letra}({Alfanumerico}|{Otro})+			printf("Error léxico: \t\tIdentificador inválido: %s\n", yytext);
-.						printf("Error léxico: \t\tCaracter no definifo: %s\n", yytext);
+.						printf("Error léxico: \t\tCaracter no definido: %s\n", yytext);
